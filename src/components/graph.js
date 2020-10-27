@@ -6,16 +6,22 @@ function Graph() {
   const [count, setCount] = useState(10);
 
   let space = 20;
-  const height = 100;
+  const height = 110;
   const width = 25;
+  const radix = 10;
 
   useEffect(() => {
     handleArrayGen();
   }, [count]);
 
   const handleArrayGen = () => {
-    let testArr = randomArray(count, 100);
-    setItems(testArr);
+    setItems(randomArray(count, 100));
+  };
+
+  const sortArray = () => {
+    const sorted = [...items].sort((a, b) => +a - +b);
+    console.log(sorted);
+    setItems(sorted);
   };
 
   return (
@@ -27,7 +33,7 @@ function Graph() {
           min="10"
           max="20"
           value={count.toString()}
-          onChange={(e) => setCount(parseInt(e.target.value))}
+          onChange={(e) => setCount(parseInt(e.target.value, radix))}
         />
       </div>
       <div className="container">
@@ -45,6 +51,9 @@ function Graph() {
             );
           })}
         </svg>
+      </div>
+      <div>
+        <button onClick={sortArray}>Sort Array</button>
       </div>
     </>
   );
